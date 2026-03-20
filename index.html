@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Birthday: Kirill & Amina</title>
+    
+    <!-- Превью для мессенджеров -->
+    <meta property="og:title" content="Kirill & Amina Birthday 🎂">
+    <meta property="og:description" content="18 апреля | Сбор своих. Листай вниз, чтобы собрать компанию!">
+
+    <link href="https://fonts.googleapis.com/css2?family=Monoton&family=Orbitron:wght@400;700&family=Raleway:wght@300;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --neon-pink: #ff2d55;
+            --neon-blue: #007aff;
+            --neon-purple: #af52de;
+            --neon-green: #34c759;
+            --dark-bg: #050505;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: #fff;
+            font-family: 'Raleway', sans-serif;
+            margin: 0;
+            padding: 0;
+            height: 450vh; /* Длина страницы для работы анимации скролла */
+            background-image: 
+                radial-gradient(circle at 50% 0%, rgba(175, 82, 222, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 50% 100%, rgba(0, 122, 255, 0.2) 0%, transparent 50%);
+            background-attachment: fixed;
+        }
+
+        .content {
+            position: relative;
+            z-index: 2;
+            max-width: 500px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .section {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            font-family: 'Monoton', cursive;
+            font-size: 2.2rem;
+            text-shadow: 0 0 15px var(--neon-purple);
+            margin: 0;
+            letter-spacing: 2px;
+        }
+
+        .names {
+            font-family: 'Orbitron', sans-serif;
+            color: var(--neon-blue);
+            font-size: 1.1rem;
+            letter-spacing: 3px;
+            margin-top: 10px;
+            text-transform: uppercase;
+        }
+
+        .info-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 25px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            margin-top: 20px;
+            width: 90%;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        /* ФИКСИРОВАННАЯ ПАНЕЛЬ С ДРУЗЬЯМИ */
+        #friends-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 90px;
+            background: linear-gradient(transparent, rgba(0,0,0,0.95));
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            padding-bottom: 15px;
+            gap: 5px;
+            z-index: 100;
+            pointer-events: none;
+        }
+
+        .friend-icon {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            opacity: 0;
+            transform: translateY(100px) scale(0.5);
+            width: 10%; 
+        }
+
+        .friend-icon.active {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        .friend-icon .emoji {
+            font-size: 1.6rem;
+            filter: drop-shadow(0 0 5px var(--neon-blue));
+        }
+
+        .friend-icon .label {
+            font-size: 0.45rem;
+            font-family: 'Orbitron', sans-serif;
+            color: #eee;
+            margin-top: 4px;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+
+        /* Кнопка */
+        .btn {
+            background: transparent;
+            border: 2px solid var(--neon-green);
+            color: var(--neon-green);
+            padding: 16px 35px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: bold;
+            box-shadow: 0 0 15px var(--neon-green);
+            display: inline-block;
+            transition: 0.3s;
+            pointer-events: auto;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn:hover {
+            background: var(--neon-green);
+            color: #000;
+            box-shadow: 0 0 30px var(--neon-green);
+        }
+
+        .scroll-hint {
+            position: absolute;
+            bottom: 110px;
+            width: 100%;
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            color: var(--neon-pink);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
+
+        strong { color: var(--neon-blue); }
+    </style>
+</head>
+<body>
+
+    <!-- Нижняя панель сбора друзей -->
+    <div id="friends-bar"></div>
+
+    <div class="content">
+        <!-- Сцена 1: Титул -->
+        <div class="section">
+            <div style="border: 1px solid var(--neon-green); padding: 5px 15px; font-size: 0.6rem; margin-bottom: 15px; letter-spacing: 2px; color: var(--neon-green);">ТОЛЬКО ДЛЯ САМЫХ БЛИЗКИХ</div>
+            <h1>BIRTHDAY</h1>
+            <div class="names">KIRILL & AMINA</div>
+            <div class="info-card">
+                <p style="font-size: 1.6rem; color: var(--neon-pink); font-weight: bold; margin: 0; font-family: 'Orbitron';">18 АПРЕЛЯ</p>
+                <p style="letter-spacing: 1px; margin-top: 5px;">ЧЕТВЕРГ / 18:30</p>
+            </div>
+            <div class="scroll-hint">ЛИСТАЙ ВНИЗ, ЧТОБЫ СОБРАТЬ ВСЕХ ▼</div>
+        </div>
+
+        <!-- Сцена 2: Дом -->
+        <div class="section">
+            <h2 style="font-family: 'Orbitron'; color: var(--neon-blue);">ВСТРЕЧА</h2>
+            <div class="info-card">
+                <p><strong>18:30 — СОБИРАЕМСЯ ДОМА</strong></p>
+                <p>Eschborn, Bremer Str 5</p>
+                <p style="font-size: 0.85rem; color: #aaa; line-height: 1.4;">Начинаем вечер в уютной<br>семейной атмосфере</p>
+            </div>
+        </div>
+
+        <!-- Сцена 3: Караоке -->
+        <div class="section">
+            <h2 style="font-family: 'Orbitron'; color: var(--neon-pink);">PARTY TIME</h2>
+            <div class="info-card">
+                <p><strong>22:00 — ЕДЕМ В КАРАОКЕ</strong></p>
+                <p>Dress Code: <strong>NEON STYLE</strong></p>
+                <p style="font-size: 0.85rem; color: #aaa; line-height: 1.4;">Надевайте самые яркие вещи.<br>Будет много неона!</p>
+            </div>
+        </div>
+
+        <!-- Сцена 4: Финал -->
+        <div class="section">
+            <h2 style="font-family: 'Orbitron'; color: var(--neon-green);">ЖДЕМ ВАС!</h2>
+            <div class="info-card">
+                <p>Всего 10 мест для своих.</p>
+                <p>Подтверди, что ты в банде!</p>
+            </div>
+            <div style="margin-top: 35px; margin-bottom: 70px;">
+                <a id="tg-link" href="#" class="btn">Я ПРИДУ!</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Список друзей с твоими описаниями
+        const friendsList = [
+            { name: 'Юра', icon: '👦🏼' },      // Блондин
+            { name: 'Аня', icon: '👩🏻' },      // Брюнетка
+            { name: 'Лера', icon: '👧🏽' },     // Светлокожая, коричневые волосы
+            { name: 'Егор', icon: '👦🏻' },     // Егор (вместо Игоря)
+            { name: 'Лера', icon: '👧🏻' },     
+            { name: 'Андрей', icon: '👦🏽' },   // Коричневые волосы
+            { name: 'Ульяна', icon: '👧🏼' },
+            { name: 'Кирилл', icon: '🤴🏻' },
+            { name: 'Амина', icon: '👸🏻' }
+        ];
+
+        const bar = document.getElementById('friends-bar');
+
+        // Создаем иконки внизу
+        friendsList.forEach((friend, index) => {
+            const div = document.createElement('div');
+            div.className = 'friend-icon';
+            div.id = `friend-${index}`;
+            div.innerHTML = `
+                <div class="emoji">${friend.icon}</div>
+                <div class="label">${friend.name}</div>
+            `;
+            bar.appendChild(div);
+        });
+
+        // Обработка скролла: друзья появляются по очереди
+        window.addEventListener('scroll', () => {
+            const scrollPercent = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
+            
+            friendsList.forEach((_, index) => {
+                // Порог появления (распределяем 9 друзей по 75% скролла)
+                const threshold = (index + 0.5) / (friendsList.length + 0.5);
+                const element = document.getElementById(`friend-${index}`);
+                
+                if (scrollPercent > threshold * 0.75) { 
+                    element.classList.add('active');
+                } else {
+                    element.classList.remove('active');
+                }
+            });
+        });
+
+        // Ссылка для подтверждения в Telegram
+        const textMessage = "Я в деле! Подтверждаю участие в неоновой вечеринке 🕺🎤✨";
+        const tgLink = `https://t.me/share/url?url=${encodeURIComponent(window.location.href)}&text=${encodeURIComponent(textMessage)}`;
+        document.getElementById('tg-link').href = tgLink;
+    </script>
+</body>
+</html>
