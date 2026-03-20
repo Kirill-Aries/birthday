@@ -26,13 +26,63 @@
             font-family: 'Raleway', sans-serif;
             margin: 0;
             padding: 0;
-            height: 450vh; /* Длина страницы для работы анимации скролла */
+            height: 450vh; 
             background-image: 
                 radial-gradient(circle at 50% 0%, rgba(175, 82, 222, 0.2) 0%, transparent 50%),
                 radial-gradient(circle at 50% 100%, rgba(0, 122, 255, 0.2) 0%, transparent 50%);
             background-attachment: fixed;
+            overflow-x: hidden;
         }
 
+        /* --- НЕОНОВАЯ АНИМАЦИЯ ПО БОКАМ --- */
+        body::before, body::after {
+            content: "";
+            position: fixed;
+            top: 0;
+            width: 4px;
+            height: 100%;
+            z-index: 999;
+            box-shadow: 0 0 20px 2px;
+            animation: flicker 3s infinite;
+        }
+
+        body::before {
+            left: 5px;
+            background: var(--neon-pink);
+            box-shadow: 0 0 15px var(--neon-pink), 0 0 30px var(--neon-pink);
+        }
+
+        body::after {
+            right: 5px;
+            background: var(--neon-blue);
+            box-shadow: 0 0 15px var(--neon-blue), 0 0 30px var(--neon-blue);
+        }
+
+        @keyframes flicker {
+            0%, 19.999%, 22%, 62.999%, 64%, 64.999%, 70%, 100% { opacity: 1; }
+            20%, 21.999%, 63%, 63.999%, 65%, 69.999% { opacity: 0.4; }
+        }
+
+        /* Эффект сканирующей полосы */
+        .scanline {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: rgba(52, 199, 89, 0.1);
+            opacity: 0.5;
+            z-index: 1000;
+            pointer-events: none;
+            animation: scan 4s linear infinite;
+        }
+
+        @keyframes scan {
+            0% { top: -10%; }
+            100% { top: 110%; }
+        }
+
+        /* --- КОНТЕНТ --- */
         .content {
             position: relative;
             z-index: 2;
@@ -54,7 +104,7 @@
         h1 {
             font-family: 'Monoton', cursive;
             font-size: 2.2rem;
-            text-shadow: 0 0 15px var(--neon-purple);
+            text-shadow: 0 0 15px var(--neon-purple), 0 0 30px var(--neon-purple);
             margin: 0;
             letter-spacing: 2px;
         }
@@ -77,6 +127,19 @@
             margin-top: 20px;
             width: 90%;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Полоска сверху карточки */
+        .info-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--neon-green), transparent);
         }
 
         /* ФИКСИРОВАННАЯ ПАНЕЛЬ С ДРУЗЬЯМИ */
@@ -85,7 +148,7 @@
             bottom: 0;
             left: 0;
             width: 100%;
-            height: 90px;
+            height: 95px;
             background: linear-gradient(transparent, rgba(0,0,0,0.95));
             display: flex;
             justify-content: center;
@@ -113,7 +176,7 @@
 
         .friend-icon .emoji {
             font-size: 1.6rem;
-            filter: drop-shadow(0 0 5px var(--neon-blue));
+            filter: drop-shadow(0 0 8px var(--neon-blue));
         }
 
         .friend-icon .label {
@@ -125,7 +188,6 @@
             white-space: nowrap;
         }
 
-        /* Кнопка */
         .btn {
             background: transparent;
             border: 2px solid var(--neon-green);
@@ -141,6 +203,8 @@
             pointer-events: auto;
             text-transform: uppercase;
             letter-spacing: 1px;
+            position: relative;
+            z-index: 1001;
         }
 
         .btn:hover {
@@ -166,25 +230,25 @@
 </head>
 <body>
 
-    <!-- Нижняя панель сбора друзей -->
+    <div class="scanline"></div>
     <div id="friends-bar"></div>
 
     <div class="content">
-        <!-- Сцена 1: Титул -->
+        <!-- Сцена 1 -->
         <div class="section">
-            <div style="border: 1px solid var(--neon-green); padding: 5px 15px; font-size: 0.6rem; margin-bottom: 15px; letter-spacing: 2px; color: var(--neon-green);">ТОЛЬКО ДЛЯ САМЫХ БЛИЗКИХ</div>
+            <div style="border: 1px solid var(--neon-green); padding: 5px 15px; font-size: 0.6rem; margin-bottom: 15px; letter-spacing: 2px; color: var(--neon-green); text-shadow: 0 0 5px var(--neon-green);">ДЛЯ САМЫХ БЛИЗКИХ</div>
             <h1>BIRTHDAY</h1>
             <div class="names">KIRILL & AMINA</div>
             <div class="info-card">
-                <p style="font-size: 1.6rem; color: var(--neon-pink); font-weight: bold; margin: 0; font-family: 'Orbitron';">18 АПРЕЛЯ</p>
-                <p style="letter-spacing: 1px; margin-top: 5px;">ЧЕТВЕРГ / 18:30</p>
+                <p style="font-size: 1.6rem; color: var(--neon-pink); font-weight: bold; margin: 0; font-family: 'Orbitron'; text-shadow: 0 0 10px var(--neon-pink);">18 АПРЕЛЯ</p>
+                <p style="letter-spacing: 1px; margin-top: 5px;">СУББОТА / 18:30</p>
             </div>
             <div class="scroll-hint">ЛИСТАЙ ВНИЗ, ЧТОБЫ СОБРАТЬ ВСЕХ ▼</div>
         </div>
 
-        <!-- Сцена 2: Дом -->
+        <!-- Сцена 2 -->
         <div class="section">
-            <h2 style="font-family: 'Orbitron'; color: var(--neon-blue);">ВСТРЕЧА</h2>
+            <h2 style="font-family: 'Orbitron'; color: var(--neon-blue); text-shadow: 0 0 10px var(--neon-blue);">ВСТРЕЧА</h2>
             <div class="info-card">
                 <p><strong>18:30 — СОБИРАЕМСЯ ДОМА</strong></p>
                 <p>Eschborn, Bremer Str 5</p>
@@ -192,19 +256,19 @@
             </div>
         </div>
 
-        <!-- Сцена 3: Караоке -->
+        <!-- Сцена 3 -->
         <div class="section">
-            <h2 style="font-family: 'Orbitron'; color: var(--neon-pink);">PARTY TIME</h2>
+            <h2 style="font-family: 'Orbitron'; color: var(--neon-pink); text-shadow: 0 0 10px var(--neon-pink);">PARTY TIME</h2>
             <div class="info-card">
                 <p><strong>22:00 — ЕДЕМ В КАРАОКЕ</strong></p>
                 <p>Dress Code: <strong>NEON STYLE</strong></p>
-                <p style="font-size: 0.85rem; color: #aaa; line-height: 1.4;">Надевайте самые яркие вещи.<br>Будет много неона!</p>
+                <p style="font-size: 0.85rem; color: #aaa; line-height: 1.4;">Надевайте яркие клубные вещи.<br>Будет много неона!</p>
             </div>
         </div>
 
-        <!-- Сцена 4: Финал -->
+        <!-- Сцена 4 -->
         <div class="section">
-            <h2 style="font-family: 'Orbitron'; color: var(--neon-green);">ЖДЕМ ВАС!</h2>
+            <h2 style="font-family: 'Orbitron'; color: var(--neon-green); text-shadow: 0 0 10px var(--neon-green);">ЖДЕМ ВАС!</h2>
             <div class="info-card">
                 <p>Всего 10 мест для своих.</p>
                 <p>Подтверди, что ты в банде!</p>
@@ -216,22 +280,22 @@
     </div>
 
     <script>
-        // Список друзей с твоими описаниями
+        // Все светлокожие (модификатор 🏻)
+        // Леры с черными волосами (👧🏻)
         const friendsList = [
+            { name: 'Амина', icon: '👸🏻' },
+            { name: 'Кирилл', icon: '🤴🏻' },
+            { name: 'Лера', icon: '👧🏻' },     // Черные волосы
             { name: 'Юра', icon: '👦🏼' },      // Блондин
             { name: 'Аня', icon: '👩🏻' },      // Брюнетка
-            { name: 'Лера', icon: '👧🏽' },     // Светлокожая, коричневые волосы
-            { name: 'Егор', icon: '👦🏻' },     // Егор (вместо Игоря)
-            { name: 'Лера', icon: '👧🏻' },     
-            { name: 'Андрей', icon: '👦🏽' },   // Коричневые волосы
-            { name: 'Ульяна', icon: '👧🏼' },
-            { name: 'Кирилл', icon: '🤴🏻' },
-            { name: 'Амина', icon: '👸🏻' }
+            { name: 'Егор', icon: '👦🏻' },     // Егор
+            { name: 'Лера', icon: '👧🏻' },     // Черные волосы
+            { name: 'Андрей', icon: '👦🏻' },   
+            { name: 'Ульяна', icon: '👧🏼' }
         ];
 
         const bar = document.getElementById('friends-bar');
 
-        // Создаем иконки внизу
         friendsList.forEach((friend, index) => {
             const div = document.createElement('div');
             div.className = 'friend-icon';
@@ -243,12 +307,10 @@
             bar.appendChild(div);
         });
 
-        // Обработка скролла: друзья появляются по очереди
         window.addEventListener('scroll', () => {
             const scrollPercent = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
             
             friendsList.forEach((_, index) => {
-                // Порог появления (распределяем 9 друзей по 75% скролла)
                 const threshold = (index + 0.5) / (friendsList.length + 0.5);
                 const element = document.getElementById(`friend-${index}`);
                 
@@ -260,9 +322,9 @@
             });
         });
 
-        // Ссылка для подтверждения в Telegram
+        // Отправка в Telegram только текста (без ссылки)
         const textMessage = "Я в деле! Подтверждаю участие в неоновой вечеринке 🕺🎤✨";
-        const tgLink = `https://t.me/share/url?url=${encodeURIComponent(window.location.href)}&text=${encodeURIComponent(textMessage)}`;
+        const tgLink = `https://t.me/share/url?text=${encodeURIComponent(textMessage)}`;
         document.getElementById('tg-link').href = tgLink;
     </script>
 </body>
